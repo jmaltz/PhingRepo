@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="GitBuild" default="update">
+
+<taskdef classname="customTasks.RemoteTask" name="deploy" />
+
+<target name="update">
+  <deploy remote="github" />
+  <!--First just do a git pull -->
+</target>
+
+</project>
