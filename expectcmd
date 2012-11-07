@@ -1,3 +1,5 @@
-#!/usr/local/bin/expect -f 
-spawn git pull
+#!/usr/bin/expect -f 
+spawn git pull github master
 expect "password"
+send "Oionsss1"
+expect eof
