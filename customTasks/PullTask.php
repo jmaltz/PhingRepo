@@ -54,17 +54,19 @@
 			if(!$fh){
 				return FALSE;
 			}
-		     	fwrite($fh, "#!/usr/bin/expect -f\n");
-		     	fwrite($fh, "spawn git pull origin master\n");
-		     	fwrite($fh, "expect {\n");
-		     
+			
 			$password_string = $this->password . "\\r";
-		     	fwrite($fh, " \"$this->passwordPrompt\"   {send  \"$password_string\" \n  expect eof }\n");
-		     	fwrite($fh, "\"Already up-to-date\" {exit 0}\n");
-		     	fwrite($fh, "default          {exit 1}\n");
-		     	fwrite($fh, "}\n");
-		     	fclose($fh);
-		     	return TRUE;
+		     
+			$commands_to_write =  "#!/usr/bin/expect -f\n" .
+					      "spawn git pull origin master\n" .
+					      "expect {\n" .
+					      " \"$this->passwordPrompt\"   {send  \"$password_string\" \n  expect eof }\n" .
+					      "\"Already up-to-date\" {exit 0}\n" .
+					      "default          {exit 1}\n" .
+					      "}\n";
+			$write_success = fwrite($fh, $commands_to_write);
+		     	$close_success = fclose($fh);
+		     	return $write_success && $close_success;
 		}
 	}	
 
