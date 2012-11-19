@@ -24,7 +24,25 @@
 	       }
 
 	       $sftp = new Net_SFTP($this->remote_address);
-	       //sftp it over to the server
+	       if(!$sftp->login($this->remote_username, $this->remote_password)){
+	       	throw new BuildException("Could not login to $this->remote_address with username $this->remote_username and $this->remote_password");
+	       }
+
+	       if($sftp->put($this->expect_file, $this->expect_file, NET_SFTP_LOCAL_FILE) !== TRUE){
+	       	 throw new BuildException("Could not put file onto the server, please try again");				 
+		}
+		if($sftp->exec("chmod 755 $this->expect_file") !== ""){
+		throw new BuildException("Could not make expect file executable");
+		}
+	       
+	       if( $sftp->exec("mv $this->expect_file $this->remote_directory" .$this->expect_file_name ) !== ""){
+	       		       throw new BuildException("Unable to move the file to $this->remote_directory\n".
+			       	     	 	        "The remote server gave error $move_result");
+		}
+
+	       echo $sftp->exec("cd $this->remote_directory;./$this->expect_file");
+	       
+	       exec("rm $this->expect_file");
 	}
 
 	public function setRemote_Address($remote_address){

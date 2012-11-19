@@ -5,7 +5,7 @@
 <!-- not equal to false -->
 <taskdef classname="customTasks.PullTask" name="pull" />
 <taskdef classname="customTasks.PushTask" name="push" />
-<taskdef classname="customTasks.RemotePull" name="remote_pull"/>
+<taskdef classname="customTasks.RemotePullTask" name="remote_pull"/>
 
 <target name="push-dev">
   <pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
