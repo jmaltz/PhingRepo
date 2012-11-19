@@ -4,9 +4,10 @@
   <property file="./build.properties" />
 <!-- not equal to false -->
 <taskdef classname="customTasks.PullTask" name="pull" />
-
+<taskdef classname="customTasks.PushTask" name="push" />
 <target name="push-dev">
   <pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
+  <push remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
 </target>
 
 
