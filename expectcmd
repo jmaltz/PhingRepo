@@ -1,5 +1,0 @@
-#!/usr/bin/expect -f 
-spawn git pull github master
-expect "password"
-send "nope!!!"
-expect eof

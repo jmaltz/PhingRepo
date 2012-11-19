@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="GitBuild" default="update">
+  <property file="./build.properties" />
+<!-- not equal to false -->
+<taskdef classname="customTasks.PullTask" name="pull" />
 
-<taskdef classname="customTasks.RemoteTask" name="deploy" />
+<target name="push-dev">
+  <pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
+</target>
 
-<target name="update">
-  <deploy remote="github" />
-  <!--First just do a git pull -->
+
+<target name="push-prod">
+  <push remote="${prod.remote}" password="${git.password}" branch="${prod.branch}"/>
 </target>
 
 </project>
