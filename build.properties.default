@@ -1,0 +1,9 @@
+key=value
+
+dev.remote = the remote you are using
+dev.branch = branchName
+dev.addr = github.com
+dev.path = Fill in Per repo
+
+git.password = password for the repo
+git.passwordPrompt = password prompt
