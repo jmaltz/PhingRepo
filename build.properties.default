@@ -2,11 +2,16 @@ key=value
 
 dev.remote = the remote you are using
 dev.branch = branchName
+
+dev.username = ssh username on dev server
+dev.password = ssh password on the dev server
+
 dev.addr = dns.ofYourRemoteHost
 dev.path = /path/to/repo/on/remote/server
 
 master.remote = the remote you are using
 master.branch = branchName
+
 master.addr = dns.ofYourRemoteHost
 master.path = /path/to/repo/on/remote/server
 
