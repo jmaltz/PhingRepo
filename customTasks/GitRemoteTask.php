@@ -1,17 +1,17 @@
 <?php
-	class GitRemoteTask extends Task {	      
+	abstract class GitRemoteTask extends Task {	      
 	      protected $remote = NULL;
 	      protected $password = NULL;
 	      protected $branch = NULL;
 	      protected $passwordPrompt = NULL;
-
+	      protected $command = NULL;
+	      protected $expect_file = "expectcmd";
 	      /*Performs any one-time initalization, doesn't do anything in this case*/
 	      public function init() {}
 
 	      /*This is what is actually called when the task happens*/
 	      public function main(){
-	      	     $expect_file = "expectcmd";
-		     $expect_file_result = $this->createExpectFile($expect_file); //generate an expect file to do the pull process
+	      	      $expect_file_result = $this->createExpectFile($this->expect_file); //generate an expect file to do the pull process
 		     if(!$expect_file_result){
 				throw new BuildException("Error, could not create the expect file.  Please make sure you can create files in this directory");
 			}
