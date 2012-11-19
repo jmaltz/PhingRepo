@@ -56,9 +56,11 @@
 			}
 			
 			$password_string = $this->password . "\\r";
+
+			$command = $this->command . " $this->remote $this->branch";
 		     
 			$commands_to_write =  "#!/usr/bin/expect -f\n" .
-					      "spawn $this->command\n" .
+					      "spawn $command\n" .
 					      "expect {\n" .
 					      " \"$this->passwordPrompt\"   {send  \"$password_string\" \n  expect eof }\n" .
 					      "\"Already up-to-date\" {exit 0}\n" .
