@@ -5,14 +5,15 @@
 <!-- not equal to false -->
 <taskdef classname="customTasks.PullTask" name="pull" />
 <taskdef classname="customTasks.PushTask" name="push" />
+
 <target name="push-dev">
   <pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
   <push remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
 </target>
 
-
-<target name="push-prod">
-  <push remote="${prod.remote}" password="${git.password}" branch="${prod.branch}"/>
+<target name="push-master">
+  <pull remote="${master.remote}" password="${git.password}" branch="${master.branch}" prompt="${git.passwordPrompt}"/>
+  <push remote="${master.remote}" password="${git.password}" branch="${master.branch}" prompt="${git.passwordPrompt}"/>
 </target>
 
 </project>

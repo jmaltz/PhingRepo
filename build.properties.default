@@ -2,8 +2,13 @@ key=value
 
 dev.remote = the remote you are using
 dev.branch = branchName
-dev.addr = github.com
-dev.path = Fill in Per repo
+dev.addr = dns.ofYourRemoteHost
+dev.path = /path/to/repo/on/remote/server
+
+master.remote = the remote you are using
+master.branch = branchName
+master.addr = dns.ofYourRemoteHost
+master.path = /path/to/repo/on/remote/server
 
 git.password = password for the repo
 git.passwordPrompt = password prompt
