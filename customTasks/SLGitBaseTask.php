@@ -1,5 +1,5 @@
 	<?php
-	 abstract class GitRemoteTask extends Task {	      
+	 abstract class SLGitBaseTask extends Task {	      
 	 protected $remote = NULL;
 	 protected $password = NULL;
 	 protected $branch = NULL;
@@ -17,18 +17,20 @@
 		}
 	     exec("chmod 755 $this->expect_file");
 	     $output = array();
-	     $result = exec("./" . $this->expect_file, $output);
+		$return_val = 0;
+	     $result = exec("./" . $this->expect_file, $output, $return_val);
 		
 	     for($i = 0; $i < count($output); $i++){
-		    echo $output[$i] . "\n";
+		    $this->log($output[$i], Project::MSG_VERBOSE);
 		    }
 		    
 
-	     if($result != 0){ //if there was an error, throw an exception
+	     if($return_val != 0){ //if there was an error, throw an exception
+			exec("rm $this->expect_file");
 			throw new BuildException("Couldn't pull from the git repository, please check for more details");
 		}
 	     else{
-		exec("rm $expect_file");
+		exec("rm $this->expect_file");
 		return;
 	     }
 	 }
@@ -66,7 +68,6 @@
 				      "expect {\n" .
 				      " \"$this->passwordPrompt\"   {send  \"$password_string\" \n  expect {\n".
 													"\"Aborting\" { 
-															spawn $reset_command\n
 															expect eof {exit 1 }\n
 															}\n" .
 													"\"CONFLICT\" {
