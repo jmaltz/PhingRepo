@@ -4,9 +4,9 @@
   <property file="./build.properties" />
 
 <includepath classpath="${phing.home}/lib/phpseclib"/>
-<taskdef classname="customTasks.SLGitPullTask" name="pull" />
-<taskdef classname="customTasks.SLGitPushTask" name="push" />
-<taskdef classname="customTasks.SLRemotePullTask" name="remote_pull"/>
+<taskdef classname="phing.custom.tasks.SLGitPullTask" name="pull" />
+<taskdef classname="phing.custom.tasks.SLGitPushTask" name="push" />
+<taskdef classname="phing.custom.tasks.SLRemotePullTask" name="remote_pull"/>
 
 <target name="pull-dev">
 	<pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
