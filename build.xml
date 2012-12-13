@@ -2,22 +2,29 @@
 
 <project name="GitBuild" default="update">
   <property file="./build.properties" />
-<!-- not equal to false -->
-<taskdef classname="customTasks.PullTask" name="pull" />
-<taskdef classname="customTasks.PushTask" name="push" />
-<taskdef classname="customTasks.RemotePullTask" name="remote_pull"/>
 
-<target name="push-dev">
-  <pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
+<includepath classpath="${phing.home}/lib/phpseclib"/>
+<taskdef classname="customTasks.SLGitPullTask" name="pull" />
+<taskdef classname="customTasks.SLGitPushTask" name="push" />
+<taskdef classname="customTasks.SLRemotePullTask" name="remote_pull"/>
+
+<target name="pull-dev">
+	<pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
+</target>
+
+<target name="pull-master">
+  <pull remote="${master.remote}" password="${git.password}" branch="${master.branch}" prompt="${git.passwordPrompt}"/>
+</target>
+
+<target name="push-dev" depends="pull-dev">
   <push remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}"/>
 </target>
 
-<target name="push-master">
-  <pull remote="${master.remote}" password="${git.password}" branch="${master.branch}" prompt="${git.passwordPrompt}"/>
+<target name="push-master" depends="pull-master">
   <push remote="${master.remote}" password="${git.password}" branch="${master.branch}" prompt="${git.passwordPrompt}"/>
 </target>
 
-<target name="deploy-dev">
+<target name="deploy-dev" depends="push-dev">
 <remote_pull remote="${dev.remote}" password="${git.password}" branch="${dev.branch}" prompt="${git.passwordPrompt}" remote_directory="${dev.path}" remote_address="${dev.addr}" remote_username="${dev.username}" remote_password="${dev.password}"/>
 
 </target>
